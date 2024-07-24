@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Formulário</title>
-</head>
-<body>
-    <h2>Formulário de Exemplo</h2>
-    <form action="https://examplo.com/submit" method="POST">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="mensagem">Mensagem:</label><br>
-        <textarea id="mensagem" name="mensagem" rows="4" cols="50"></textarea><br><br>
-        
-        <input type="submit" value="Enviar">
-    </form>
-</body>
-</html>
+
+<html lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>[DA] - Requerimentos de Membros</title>
+    <link
+      rel="icon"
+      href="https://www.habbo.com.br/habbo-imaging/badge/b09154s43067s50134s17115s17113befaf2eadf28bb2e257d8c15d36dbf43.gif!
+    />
+
