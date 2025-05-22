@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>[ESR] Conteúdo Programático</title>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #619c19, #56ab2f,#0c7c1b);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease-in-out infinite;
+      font-family: 'Poppins', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    h2 {
+      color: #fff;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 2.4rem;
+      text-shadow: 0 4px 24px rgba(46, 125, 50, 0.25), 0 1px 0 #388e3c;
+      border-bottom: 2px solid #a8e06344;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      background: none;
+    }
+    .form-container {
+      background: #fff;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 36px 28px 28px 28px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(46, 125, 50, 0.15);
+      border: 1px solid #c8e6c9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.7s;
+      position: relative;
+      z-index: 2;
+    }
+    .form-container.visible {
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    .select-center {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+      margin-top: 0;
+    }
+    .label-bonito {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #2e7d32;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      margin-top: 0;
+      text-align: center;
+      background: linear-gradient(90deg, #43cea2, #56ab2f, #a8e063);
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: shine 5s linear infinite;
+      text-shadow: 0 2px 8px #a8e06322;
+      border-radius: 6px;
+      padding: 2px 0;
+      width: 100%;
+      display: block;
+      transition: opacity 0.3s;
+    }
+    .label-bonito.hidden {
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    /* Custom Select */
+    .custom-select {
+      position: relative;
+      width: 500%;
+      max-width: 540px;
+      font-family: 'Poppins', Arial, sans-serif;
+      margin-bottom: 0;
+    }
+    .select-selected {
+      background: #f1f8e9;
+      border: 2px solid #43a047;
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      color: #2e7d32;
+      font-size: 1.1rem;
+      transition: box-shadow 0.3s, border 0.3s;
+      box-shadow: 0 2px 8px rgba(46, 125, 50, 0.10);
+      position: relative;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .select-selected.open {
+      border: 2.5px solid #388e3c;
+      box-shadow: 0 4px 24px rgba(46, 125, 50, 0.18);
+      background: #e8f5e9;
+    }
+    .select-arrow {
+      margin-left: 10px;
+      transition: transform 0.3s;
+      font-size: 1.2em;
+    }
+    .select-selected.open .select-arrow {
+      transform: rotate(180deg);
+    }
+    .select-items {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      background: #f1f8e9;
+      border: 1px solid #a5d6a7;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+      z-index: 99;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.35s cubic-bezier(.4,0,.2,1), opacity 0.3s;
+      pointer-events: none;
+      display: block;
+    }
+    .select-items.open {
+      max-height: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .select-items div {
+      padding: 12px 16px;
+      cursor: pointer;
+      color: #2e7d32;
+      transition: background 0.2s;
+      font-size: 1.05rem;
+      background: #f1f8e9;
+      display: block;
+    }
+    .select-items div:hover, .select-items div.selected {
+      background: #e8f5e9;
+      color: #388e3c;
+    }
+    label {
+      display: block;
+      margin-top: 18px;
+      color: #388e3c;
+      font-weight: 500;
+      font-size: 1rem;
+      font-family: 'Poppins', Arial, sans-serif;
+      text-align: center;
+      width: 100%;
+    }
+    input[type="text"], textarea {
+      width: 300%;
+      max-width: 540px;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border: 1px solid #a5d6a7;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f1f8e9;
+      color: #2e7d32;
+      box-sizing: border-box;
+      transition: border 0.2s;
+      font-family: 'Poppins', Arial, sans-serif;
+      display: block;
+      text-align: center;
+      resize: none;
+    }
+    #secaoRetificacao input[type="text"],
+    #secaoRetificacao textarea,
+    #secaoRetificacao .custom-select {
+      width: 235%;
+      max-width: none;
+    }
+    input[type="text"]:focus, textarea:focus {
+      border: 1.5px solid #43a047;
+      outline: none;
+      background: #e8f5e9;
+    }
+    button {
+      margin-top: 24px;
+      width: 200%;
+      padding: 12px 0;
+      background: linear-gradient(90deg, #43a047 60%, #66bb6a 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(46, 125, 50, 0.10);
+      transition: background 0.2s;
+      font-family: 'Poppins', Arial, sans-serif;
+      display: block;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #388e3c 60%, #43a047 100%);
+    }
+    .hidden { display: none; }
+    .form-section {
+      display: none;
+    }
+    .form-section.visible {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .botao-animado {
+      animation: pulse 0.3s;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.08);}
+      100% { transform: scale(1);}
+    }
+    .campo-animado {
+      box-shadow: 0 0 0 3px #a8e06355;
+      transition: box-shadow 0.3s;
+    }
+    @keyframes shine {
+      to {
+        background-position: 200% center;
+      }
+    }
+    /* Loader */
+    #loader-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,40,20,0.95);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.7s;
+    }
+    #loader-bg.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* Loader de envio */
+    #loader-envio {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20,40,20,0.95);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 1;
+      transition: opacity 0.7s;
+    }
+    #loader-envio.visible {
+      display: flex;
+    }
+    #loader-envio.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .esr-loader {
+      display: flex;
+      gap: 18px;
+    }
+    .esr-loader span {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: #a8e063;
+      text-shadow: 0 2px 16px #619c19cc;
+      display: inline-block;
+      animation: spin 1.2s linear infinite;
+    }
+    .esr-loader span:nth-child(2) {
+      color: #fff;
+      animation-delay: 0.2s;
+    }
+    .esr-loader span:nth-child(3) {
+      color: #56ab2f;
+      animation-delay: 0.4s;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      80% { transform: rotate(360deg);}
+      100% { transform: rotate(360deg);}
+    }
+    /* Mensagem de confirmação */
+    .mensagem-enviada {
+      background: linear-gradient(90deg, #43a047 60%, #a8e063 100%);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      box-shadow: 0 4px 24px rgba(46, 125, 50, 0.18);
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 32px;
+      margin-bottom: 0;
+      z-index: 10001;
+      text-align: center;
+      display: none;
+    }
+    .mensagem-enviada.visible {
+      display: block;
+    }
+    /* Página de agradecimento */
+    #pagina-agradecimento {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      animation: fadeIn 1s;
+      width: 100vw;
+      position: fixed;
+      top: 0; left: 0;
+      background: linear-gradient(120deg, #619c19, #56ab2f,#0c7c1b);
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.7s;
+    }
+    #pagina-agradecimento.visible {
+      display: flex;
+      opacity: 1;
+    }
+    .caixa-final {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(46, 125, 50, 0.15);
+      border: 1px solid #c8e6c9;
+      padding: 32px 24px 24px 24px;
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #pagina-agradecimento h1 {
+      font-size: 2rem;
+      color: #388e3c;
+      margin-bottom: 18px;
+    }
+    #pagina-agradecimento p {
+      font-size: 1.15rem;
+      color: #333;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .botoes-finais {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      margin-top: 18px;
+      flex-wrap: nowrap; /* Não permite quebrar linha */
+      justify-content: center;
+      align-items: center;
+    }
+    .botao-link, .botao-nova-resposta {
+      display: flex;
+      flex: 1 1 0;
+      min-width: 180px;
+      max-width: 400px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 0;
+      padding: 12px 28px;
+      background: linear-gradient(90deg, #43a047 60%, #66bb6a 100%);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(46, 125, 50, 0.10);
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      line-height: 1.2; /* Garante alinhamento vertical */
+    }
+
+    /* Animação de hover para ambos */
+    .botao-link:hover, .botao-link:focus,
+    .botao-nova-resposta:hover, .botao-nova-resposta:focus {
+      background: linear-gradient(90deg, #388e3c 60%, #43a047 100%);
+      transform: scale(1.04);
+      color: #fff;
+      text-decoration: none;
+    }
+    @media (max-width: 500px) {
+      .botoes-finais {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .botao-link, .botao-nova-resposta {
+        width: 250%;
+        max-width: none;
+        font-size: 1rem;
+        padding: 10px 6px;
+        min-width: 80px;
+        max-width: 100vw;
+      }
+    }
+    @media (max-width: 500px) {
+      .form-container, #pagina-agradecimento .caixa-final {
+        max-width: 98vw;
+        padding: 10vw 2vw;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
+    /* Apenas para o seletor de meses */
+    #customOptionsMes {
+      max-height: 220px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #43a047 #e8f5e9;
+      border-radius: 10px;
+    }
+    #customOptionsMes::-webkit-scrollbar {
+      width: 10px;
+      background: #e8f5e9;
+      border-radius: 8px;
+    }
+    #customOptionsMes::-webkit-scrollbar-thumb {
+      background: linear-gradient(120deg, #43a047 60%, #a8e063 100%);
+      border-radius: 8px;
+      border: 2px solid #e8f5e9;
+    }
+    #customOptionsMes::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(120deg, #388e3c 60%, #43a047 100%);
+    }
+    #customSelectTipo {
+      max-width: 700px;
+      width: 700%;
+    }
+    #secaoConteudo .custom-select .select-selected,
+    #secaoConteudo .custom-select .select-items {
+      background: #f1f8e9;
+      border: 1px solid #a5d6a7;
+      color: #2e7d32;
+      border-radius: 10px;
+    }
+
+    #secaoConteudo .custom-select .select-selected.open {
+      border: 1.5px solid #43a047;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    #secaoConteudo .custom-select .select-arrow {
+      color: #2e7d32;
+    }
+
+    #secaoConteudo .custom-select .select-items {
+      background: #f1f8e9;
+    }
+
+    #secaoConteudo .custom-select .select-items div {
+      color: #2e7d32;
+      background: #f1f8e9;
+    }
+
+    #secaoConteudo .custom-select .select-items div:hover,
+    #secaoConteudo .custom-select .select-items div.selected {
+      background: #e8f5e9;
+      color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader inicial -->
+  <div id="loader-bg">
+    <div class="esr-loader">
+      <span>E</span>
+      <span>S</span>
+      <span>R</span>
+    </div>
+  </div>
+  <!-- Loader de envio -->
+  <div id="loader-envio">
+    <div class="esr-loader">
+      <span>E</span>
+      <span>S</span>
+      <span>R</span>
+    </div>
+    <div id="mensagem-enviada" class="mensagem-enviada">
+      <span>✅ Formulário enviado com sucesso!</span>
+    </div>
+    <!-- Confetes -->
+    <canvas id="confetti-canvas" class="hidden" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:10002;"></canvas>
+  </div>
+
+  <h2>[ESR] Conteúdo Programático</h2>
+  <div class="form-container" id="formContainer">
+    <div class="select-center">
+      <span id="labelTipoEnvio" class="label-bonito">Selecione o tipo de envio</span>
+      <div class="custom-select" id="customSelectTipo">
+        <div class="select-selected" onclick="toggleCustomSelect('tipoEnvio')" id="selectedOption">
+          Escolha uma opção...
+          <span class="select-arrow">&#9660;</span>
+        </div>
+        <div class="select-items" id="customOptions">
+          <div data-value="" onclick="selectOptionCustom(this, 'tipoEnvio')" id="optionEscolha">Escolha uma opção...</div>
+          <div data-value="conteudo" onclick="selectOptionCustom(this, 'tipoEnvio')">Postagem de conteúdo</div>
+          <div data-value="retificacao" onclick="selectOptionCustom(this, 'tipoEnvio')">Retificação de erro</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção: Postagem de conteúdo -->
+    <div id="secaoConteudo" class="form-section hidden">
+      <label>Disciplina:</label>
+      <div class="custom-select" id="customSelectDisciplina">
+        <div class="select-selected" onclick="toggleCustomSelect('disciplina')" id="selectedDisciplina">
+          Selecione sua disciplina.
+          <span class="select-arrow">&#9660;</span>
+        </div>
+        <div class="select-items" id="customOptionsDisciplina">
+          <div data-value="" onclick="selectOptionCustom(this, 'disciplina')" id="optionEscolhaDisciplina"
+            style="visibility:visible;position:static;">Selecione sua disciplina.</div>
+          <div data-value="Ciências" onclick="selectOptionCustom(this, 'disciplina')">Ciências</div>
+          <div data-value="Geografia" onclick="selectOptionCustom(this, 'disciplina')">Geografia</div>
+          <div data-value="História" onclick="selectOptionCustom(this, 'disciplina')">História</div>
+          <div data-value="Inglês" onclick="selectOptionCustom(this, 'disciplina')">Inglês</div>
+          <div data-value="Matemática" onclick="selectOptionCustom(this, 'disciplina')">Matemática</div>
+          <div data-value="Português" onclick="selectOptionCustom(this, 'disciplina')">Português</div>
+          <div data-value="Redação" onclick="selectOptionCustom(this, 'disciplina')">Redação</div>
+        </div>
+      </div>
+
+      <label>Série:</label>
+      <div class="custom-select" id="customSelectSerie">
+        <div class="select-selected" onclick="toggleCustomSelect('serie')" id="selectedSerie">
+          Selecione a série.
+          <span class="select-arrow">&#9660;</span>
+        </div>
+        <div class="select-items" id="customOptionsSerie">
+          <div data-value="" onclick="selectOptionCustom(this, 'serie')" id="optionEscolhaSerie">Selecione a série.</div>
+          <div data-value="6° Ano" onclick="selectOptionCustom(this, 'serie')">6° Ano</div>
+          <div data-value="7° Ano" onclick="selectOptionCustom(this, 'serie')">7° Ano</div>
+          <div data-value="8° Ano" onclick="selectOptionCustom(this, 'serie')">8° Ano</div>
+          <div data-value="9° Ano" onclick="selectOptionCustom(this, 'serie')">9° Ano</div>
+        </div>
+      </div>
+
+      <label>Mês:</label>
+      <div class="custom-select" id="customSelectMes">
+        <div class="select-selected" onclick="toggleCustomSelect('mes')" id="selectedMes">
+          Selecione o mês.
+          <span class="select-arrow">&#9660;</span>
+        </div>
+        <div class="select-items" id="customOptionsMes">
+          <div data-value="" onclick="selectOptionCustom(this, 'mes')" id="optionEscolhaMes">Selecione o mês.</div>
+          <div data-value="Janeiro" onclick="selectOptionCustom(this, 'mes')">Janeiro</div>
+          <div data-value="Fevereiro" onclick="selectOptionCustom(this, 'mes')">Fevereiro</div>
+          <div data-value="Março" onclick="selectOptionCustom(this, 'mes')">Março</div>
+          <div data-value="Abril" onclick="selectOptionCustom(this, 'mes')">Abril</div>
+          <div data-value="Maio" onclick="selectOptionCustom(this, 'mes')">Maio</div>
+          <div data-value="Junho" onclick="selectOptionCustom(this, 'mes')">Junho</div>
+          <div data-value="Julho" onclick="selectOptionCustom(this, 'mes')">Julho</div>
+          <div data-value="Agosto" onclick="selectOptionCustom(this, 'mes')">Agosto</div>
+          <div data-value="Setembro" onclick="selectOptionCustom(this, 'mes')">Setembro</div>
+          <div data-value="Outubro" onclick="selectOptionCustom(this, 'mes')">Outubro</div>
+          <div data-value="Novembro" onclick="selectOptionCustom(this, 'mes')">Novembro</div>
+          <div data-value="Dezembro" onclick="selectOptionCustom(this, 'mes')">Dezembro</div>
+        </div>
+      </div>
+    
+      <label>Conteúdo:</label>
+      <textarea rows="4" placeholder="Descreva o conteúdo aqui..."></textarea>
+
+      <button onclick="enviar()">Enviar</button>
+    </div>
+
+    <!-- Seção: Retificação de erro -->
+    <div id="secaoRetificacao" class="form-section hidden">
+      <label>ID da Postagem:</label>
+      <input type="text" placeholder="Digite o ID da postagem">
+
+      <label>Comentários:</label>
+      <textarea rows="3" placeholder="Descreva o erro ou sugestão..."></textarea>
+
+      <button onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Página de agradecimento -->
+  <div id="pagina-agradecimento">
+    <div class="caixa-final">
+      <h1>🎉 Obrigada pela sua contribuição! 🎉</h1>
+      <p>
+        Sua colaboração é fundamental para a organização das provas do mês vigente. 📚<br>
+        Caso tenha enviado alguma informação incorreta ou enfrente qualquer problema, entre em contato com a secretaria pedagógica — estamos aqui para ajudar! 🧑‍💼📞
+      </p>
+      <p>
+        Tenha um ótimo dia e mais uma vez, obrigado por fazer parte desse processo! 😊
+      </p>
+      <div class="botoes-finais">
+        <a class="botao-link" href="https://docs.google.com/spreadsheets/d/1SWmV3tsXn7-Cm12lbY4LOqN8J2JF_JJ74BHTXkuZDRc/edit?gid=1769911231#gid=1769911231" target="_blank">
+          Conferir postagem
+        </a>
+        <button class="botao-nova-resposta" onclick="novaResposta()">Enviar outra resposta</button>
+      </div>
+    </div>
+    <!-- Confetes na página final -->
+    <canvas id="confetti-canvas-final" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:10002;"></canvas>
+  </div>
+
+<script>
+  // Custom select animado para todos os selects
+  let selectedValue = "";
+  let selectedDisciplina = "";
+  let selectedSerie = "";
+  let selectedMes = "";
+
+  function toggleCustomSelect(tipo) {
+    document.querySelectorAll('.select-selected').forEach(el => {
+      if (
+        (tipo === 'tipoEnvio' && el.id !== 'selectedOption') ||
+        (tipo !== 'tipoEnvio' && el.id !== 'selected' + capitalize(tipo))
+      ) {
+        el.classList.remove('open');
+      }
+    });
+    document.querySelectorAll('.select-items').forEach(el => {
+      if (
+        (tipo === 'tipoEnvio' && el.id !== 'customOptions') ||
+        (tipo !== 'tipoEnvio' && el.id !== 'customOptions' + capitalize(tipo))
+      ) {
+        el.classList.remove('open');
+      }
+    });
+
+    if (tipo === 'tipoEnvio') {
+      document.getElementById('selectedOption').classList.toggle('open');
+      document.getElementById('customOptions').classList.toggle('open');
+    } else {
+      document.getElementById('selected' + capitalize(tipo)).classList.toggle('open');
+      document.getElementById('customOptions' + capitalize(tipo)).classList.toggle('open');
+    }
+    atualizarOpcoes(tipo);
+  }
+
+  function selectOptionCustom(el, tipo) {
+    const value = el.getAttribute('data-value');
+    const text = el.textContent;
+    let selected;
+    if (tipo === 'tipoEnvio') {
+      selected = document.getElementById('selectedOption');
+      selectedValue = value;
+    } else if (tipo === 'disciplina') {
+      selected = document.getElementById('selectedDisciplina');
+      selectedDisciplina = value;
+    } else if (tipo === 'serie') {
+      selected = document.getElementById('selectedSerie');
+      selectedSerie = value;
+    } else if (tipo === 'mes') {
+      selected = document.getElementById('selectedMes');
+      selectedMes = value;
+    }
+    selected.childNodes[0].nodeValue = text + ' ';
+    toggleCustomSelect(tipo);
+
+    let optionsId = (tipo === 'tipoEnvio') ? 'customOptions' : 'customOptions' + capitalize(tipo);
+    document.querySelectorAll('#' + optionsId + ' div').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+
+    if (tipo === 'tipoEnvio') {
+      const label = document.getElementById("labelTipoEnvio");
+      if (value === "") {
+        label.classList.remove("hidden");
+      } else {
+        label.classList.add("hidden");
+      }
+      mostrarSecaoCustom(value);
+    }
+    atualizarOpcoes(tipo);
+  }
+
+  function atualizarOpcoes(tipo) {
+    let escolha, val;
+    if (tipo === 'tipoEnvio') {
+      escolha = document.getElementById('optionEscolha');
+      val = selectedValue;
+    } else if (tipo === 'disciplina') {
+      escolha = document.getElementById('optionEscolhaDisciplina');
+      val = selectedDisciplina;
+    } else if (tipo === 'serie') {
+      escolha = document.getElementById('optionEscolhaSerie');
+      val = selectedSerie;
+    } else if (tipo === 'mes') {
+      escolha = document.getElementById('optionEscolhaMes');
+      val = selectedMes;
+    }
+    if (escolha) {
+      if (val && val !== "") {
+        escolha.style.visibility = "hidden";
+        escolha.style.position = "absolute";
+      } else {
+        escolha.style.visibility = "visible";
+        escolha.style.position = "static";
+      }
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    document.querySelectorAll('.custom-select').forEach(select => {
+      if (!select.contains(e.target)) {
+        select.querySelector('.select-selected').classList.remove('open');
+        select.querySelector('.select-items').classList.remove('open');
+      }
+    });
+  });
+
+  function mostrarSecaoCustom(tipo) {
+    const secaoConteudo = document.getElementById("secaoConteudo");
+    const secaoRetificacao = document.getElementById("secaoRetificacao");
+
+    secaoConteudo.classList.remove("visible");
+    secaoConteudo.classList.add("hidden");
+    secaoRetificacao.classList.remove("visible");
+    secaoRetificacao.classList.add("hidden");
+
+    if (tipo === "conteudo") {
+      secaoConteudo.classList.remove("hidden");
+      secaoConteudo.classList.add("visible");
+    } else if (tipo === "retificacao") {
+      secaoRetificacao.classList.remove("hidden");
+      secaoRetificacao.classList.add("visible");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", function(e) {
+        btn.classList.add("botao-animado");
+        setTimeout(() => btn.classList.remove("botao-animado"), 300);
+      });
+    });
+
+    document.querySelectorAll("textarea, input[type='text']").forEach(el => {
+      el.addEventListener("focus", function() {
+        el.classList.add("campo-animado");
+      });
+      el.addEventListener("blur", function() {
+        el.classList.remove("campo-animado");
+      });
+    });
+  });
+
+  // Confete simples (canvas)
+  function startConfetti(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+    let particles = [];
+    let colors = ["#43a047", "#a8e063", "#56ab2f", "#fff", "#388e3c", "#fbc02d", "#e57373"];
+    const totalParticles = 180; // Mais confetes
+    for (let i = 0; i < totalParticles; i++) {
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * -H * 1.2, // Começa mais acima
+        r: Math.random() * 8 + 4,
+        d: Math.random() * 80 + 10,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        tilt: Math.random() * 10 - 10,
+        tiltAngleIncremental: (Math.random() * 0.07) + .05,
+        tiltAngle: 0
+      });
+    }
+    let angle = 0;
+    let animationFrame;
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      angle += 0.01;
+      let allOut = true;
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += (Math.cos(angle + p.d) + 3 + p.r / 2) / 2;
+        p.x += Math.sin(angle);
+        p.tilt = Math.sin(p.tiltAngle - (i % 3)) * 15;
+        ctx.beginPath();
+        ctx.lineWidth = p.r;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 3, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 3);
+        ctx.stroke();
+        if (p.y < H + 20) allOut = false; // Se algum ainda está na tela, continua
+      }
+      if (!allOut) {
+        animationFrame = requestAnimationFrame(draw);
+      } else {
+        ctx.clearRect(0, 0, W, H);
+        canvas.classList.add('hidden');
+      }
+    }
+    canvas.classList.remove('hidden');
+    draw();
+  }
+
+  // Validação e envio
+  function enviar() {
+    if (selectedValue === "" || selectedValue === undefined) {
+      mostrarErro("Selecione o tipo de envio.");
+      return;
+    }
+    let formData = new FormData();
+
+    if (selectedValue === "conteudo") {
+      if (
+        selectedDisciplina === "" ||
+        selectedSerie === "" ||
+        selectedMes === "" ||
+        document.querySelector("#secaoConteudo textarea").value.trim() === ""
+      ) {
+        mostrarErro("Preencha todos os campos para enviar.");
+        return;
+      }
+      // Preenche os campos do Google Forms
+      formData.append("entry.1340979957", "Postagem de conteúdo"); // valor exato do Forms
+      formData.append("entry.1430642646", selectedDisciplina);
+      formData.append("entry.716943280", selectedSerie);
+      formData.append("entry.1093269950", selectedMes);
+      formData.append("entry.170316417", document.querySelector("#secaoConteudo textarea").value.trim());
+    }
+
+    if (selectedValue === "retificacao") {
+      const id = document.querySelector("#secaoRetificacao input[type='text']").value.trim();
+      const comentario = document.querySelector("#secaoRetificacao textarea").value.trim();
+      if (id === "" || comentario === "") {
+        mostrarErro("Preencha todos os campos para enviar.");
+        return;
+      }
+      formData.append("entry.1340979957", "Retificação de erro"); // valor exato do Forms
+      formData.append("entry.1966340304", id);
+      formData.append("entry.1043073838", comentario);
+    }
+    
+    // Envia para o Google Forms
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSdK8tLprG4XXOTyUnXvJDO9AiuiiPrB0fbqZ5k-Koxz6bqjLQ/formResponse", {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    });
+
+    // Mostra loader de envio
+    document.getElementById('loader-envio').classList.add('visible');
+
+    // Mostra mensagem de confirmação após 1s (ainda durante o loader)
+    setTimeout(() => {
+      document.getElementById('mensagem-enviada').classList.add('visible');
+    }, 1000);
+
+    // Após mais 1s (total 2s), vai para a tela final e esconde a mensagem
+    setTimeout(() => {
+      const loaderEnvio = document.getElementById('loader-envio');
+      const paginaAgradecimento = document.getElementById('pagina-agradecimento');
+      loaderEnvio.classList.add('fade-out');
+      // Aguarda o tempo da transição (0.7s) para esconder de fato
+      setTimeout(() => {
+        loaderEnvio.classList.remove('fade-out');
+        loaderEnvio.classList.remove('visible');
+        document.getElementById('formContainer').style.display = 'none';
+        paginaAgradecimento.classList.add('visible');
+        // Confete na página final
+        startConfetti('confetti-canvas-final');
+        // Esconde a mensagem após 2s (opcional)
+        setTimeout(() => {
+          document.getElementById('mensagem-enviada').classList.remove('visible');
+        }, 2000);
+      }, 700); // Tempo igual ao transition do CSS
+    }, 2000);
+  }
+
+  function mostrarErro(texto) {
+    const msg = document.getElementById('mensagem-enviada');
+    msg.innerHTML = `<span>❌ ${texto}</span>`;
+    msg.classList.add('visible');
+    setTimeout(() => {
+      msg.classList.remove('visible');
+      msg.innerHTML = `<span>✅ Formulário enviado com sucesso!</span>`;
+    }, 2000);
+  }
+
+  function novaResposta() {
+    selectedValue = "";
+    selectedDisciplina = "";
+    selectedSerie = "";
+    selectedMes = "";
+    document.getElementById('selectedOption').childNodes[0].nodeValue = "Escolha uma opção... ";
+    document.getElementById('selectedDisciplina').childNodes[0].nodeValue = "Escolha uma opção... ";
+    document.getElementById('selectedSerie').childNodes[0].nodeValue = "Escolha uma opção... ";
+    document.getElementById('selectedMes').childNodes[0].nodeValue = "Escolha uma opção... ";
+    document.querySelectorAll('.select-items div.selected').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('textarea').forEach(t => t.value = "");
+    document.querySelectorAll('input[type="text"]').forEach(i => i.value = "");
+    atualizarOpcoes('tipoEnvio');
+    atualizarOpcoes('disciplina');
+    atualizarOpcoes('serie');
+    atualizarOpcoes('mes');
+    mostrarSecaoCustom("");
+    document.getElementById('formContainer').style.display = '';
+    document.getElementById('pagina-agradecimento').classList.remove('visible');
+    document.getElementById("labelTipoEnvio").classList.remove("hidden");
+  }
+
+  window.onload = function() {
+    document.getElementById("labelTipoEnvio").classList.remove("hidden");
+    mostrarSecaoCustom("");
+    setTimeout(() => {
+      document.getElementById('loader-bg').classList.add('hidden');
+      document.getElementById('formContainer').classList.add('visible');
+    }, 1500);
+  };
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+</script>
+</body>
+</html>
